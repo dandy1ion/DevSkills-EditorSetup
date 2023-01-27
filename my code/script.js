@@ -1,7 +1,5 @@
 'use strict';
 
-// Google, StackOverflow and MDN
-
 // PROBLEM 1:
 // Working for a company building a smart home thermometer.
 //Task: "Given an array of temperatures of one day, calculate the temperature amplitude."
@@ -12,27 +10,41 @@ const temperatures = [3, -2, -6, -1, 'error', 9, 13, 17, 15, 14, 9, 5];
 // 1) Understanding the problem
 // - Temp amplitude: the difference between highest and lowest temp
 // - Compute max and min temperatures
-// - What's a sensor error? And what to do?
+// - What's a sensor error? And what to do? (ignore?)
 
 // 2) Breaking up into sub-problems
+// [use Google, Stackoverflow, and MDN to research as needed]
 // - How to ignore errors?
 // - Find max value in temp array
 // - Find min value in temp array
 // - Subtract min from max (amplitude) and return it
 
-const calcTempAmplitude = function (temps) {
-  let max = temps[0];
-  let min = temps[0];
+//with just max temp
+//const calcTempAmplitude = function (temps) {
+//  let max = temps[0];
+//  for (let i = 0; i < temps.length; i++) {
+//    if (temps[i] > max) max = temps[i];
+//  }
+//  console.log(max);
+//};
+//calcTempAmplitude([3, 7, 4]);
 
+//write a function that recieves an array of temperatures
+const calcTempAmplitude = function (temps) {
+  let max = temps[0]; //define first element of array as max (starting point)
+  let min = temps[0]; //define first element of array as min (starting point)
+
+  //loop through the array (i must not go longer than length of array)
   for (let i = 0; i < temps.length; i++) {
     const curTemp = temps[i];
-    if (typeof curTemp !== 'number') continue;
-
+    //ignore errors
+    if (typeof curTemp !== 'number') continue; //moves on to next iteration
+    //
     if (curTemp > max) max = curTemp;
     if (curTemp < min) min = curTemp;
   }
   console.log(max, min);
-  return max - min;
+  return max - min; //returns the amplitude
 };
 const amplitude = calcTempAmplitude(temperatures);
 console.log(amplitude);
@@ -47,25 +59,28 @@ console.log(amplitude);
 // - Merge 2 arrays
 
 const calcTempAmplitudeNew = function (t1, t2) {
-  const temps = t1.concat(t2);
+  //on array one call concat method and as an argument pass in the second array
+  const temps = t1.concat(t2); // look up concat (method of arrays) on MDN
+  //result is a third array (combined two arrays)
   console.log(temps);
 
-  let max = temps[0];
-  let min = temps[0];
+  let max = temps[0]; //define first element of array as max (starting point)
+  let min = temps[0]; //define first element of array as max (starting point)
 
+  //loop through the array
   for (let i = 0; i < temps.length; i++) {
     const curTemp = temps[i];
-    if (typeof curTemp !== 'number') continue;
+    //ignore errors
+    if (typeof curTemp !== 'number') continue; //moves on to next iteration
 
     if (curTemp > max) max = curTemp;
     if (curTemp < min) min = curTemp;
   }
   console.log(max, min);
-  return max - min;
+  return max - min; //returns the amplitude
 };
 const amplitudeNew = calcTempAmplitudeNew([3, 5, 1], [9, 0, 5]);
 console.log(amplitudeNew);
-
 
 // Debugging with the Console and Breakpoints
 const measureKelvin = function () {
@@ -75,34 +90,43 @@ const measureKelvin = function () {
 
     // C) FIX
     // value: Number(prompt('Degrees celsius:')),
+    //Number changes the string to a number = works
     value: 10,
   };
 
-  // B) FIND
+  // B) FIND (value is coming through as a string when entered in prompt)
+  //console.log(measurement);
   console.table(measurement);
 
   // console.log(measurement.value);
-  // console.warn(measurement.value);
-  // console.error(measurement.value);
+  // console.warn(measurement.value); //generate a warning in the console
+  // console.error(measurement.value); //generate an error in the console
 
   const kelvin = measurement.value + 273;
   return kelvin;
 };
-// A) IDENTIFY
+// A) IDENTIFY the bug
 console.log(measureKelvin());
 
-// Using a debugger
+// Using a debugger (inspector, sources tab)
+//(breakpoints = stop execution at that moment to help find bugs)
 const calcTempAmplitudeBug = function (t1, t2) {
   const temps = t1.concat(t2);
   console.log(temps);
 
+  // B) FIND (start value at zero, instead of starting at first iteration in array)
   let max = 0;
   let min = 0;
+  // C) FIX
+  //define first element of array as max&min (starting point)
+  //let max = temps[0];
+  //let min = temps[0];
 
   for (let i = 0; i < temps.length; i++) {
     const curTemp = temps[i];
     if (typeof curTemp !== 'number') continue;
 
+    //debugger; //call debugger from code (auto open the debugger tool in browser)
     if (curTemp > max) max = curTemp;
     if (curTemp < min) min = curTemp;
   }
@@ -113,8 +137,6 @@ const amplitudeBug = calcTempAmplitudeBug([3, 5, 1], [9, 4, 5]);
 // A) IDENTIFY
 console.log(amplitudeBug);
 
-
-///////////////////////////////////////
 // Coding Challenge #1
 
 /*
@@ -130,7 +152,6 @@ TEST DATA 1: [17, 21, 23]
 TEST DATA 2: [12, 5, -5, 0, 4]
 */
 
-
 // 1) Understanding the problem
 // - Array transformed to string, separated by ...
 // - What is the X days? Answer: index + 1
@@ -142,16 +163,23 @@ TEST DATA 2: [12, 5, -5, 0, 4]
 // - Add ... between elements and start and end of string
 // - Log string to console
 
-const data1 = [17, 21, 23];
-const data2 = [12, 5, -5, 0, 4];
+//create 2 arrays, one for each test data
+const testData1 = [17, 21, 23];
+const testData2 = [12, 5, -5, 0, 4];
 
-console.log(`... ${data1[0]}ºC ... ${data1[1]}ºC ... ${data1[2]}ºC ...`);
+//test out how to write the array
+//console.log(
+//  `... ${testData1[0]}ºC ... ${testData1[1]}ºC ... ${testData1[2]}ºC ...`
+//);
 
 const printForecast = function (arr) {
-  let str = '';
+  let str = ''; // empty string
+  //loop through array
   for (let i = 0; i < arr.length; i++) {
-    str += `${arr[i]}ºC in ${i + 1} days ... `;
+    str += `${arr[i]}ºC in ${i + 1} days ... `; // adds each string to eachother
   }
-  console.log('...' + str);
+  console.log('...' + str); //adds dots to just the begining
 };
-printForecast(data1);
+//call function
+//printForecast(testData1);
+printForecast(testData2);
